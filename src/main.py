@@ -144,8 +144,8 @@ def gerar_grafico_pizza(df):
 
     plt.figure(figsize=(8, 8))
     distribuicao_renda.plot.pie(
-        autopct='%1.1f%%', 
-        startangle=90, 
+        autopct='%1.1f%%',
+        startangle=90,
         colors=['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0']
     )
     plt.title('Distribuição de Renda (Faixas de Renda)')
@@ -154,4 +154,6 @@ def gerar_grafico_pizza(df):
 
 caminho_arquivo = "assets/dados.csv"
 
-ler_csv(caminho_arquivo)
+if __name__ == "__main__":
+    caminho_arquivo = "assets/dados.csv"
+    ler_csv(caminho_arquivo)
