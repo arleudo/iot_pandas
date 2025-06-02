@@ -77,14 +77,6 @@ def ler_csv(caminho_arquivo):
         df['risco'] = df.apply(calcular_risco, axis=1)
         print(df.head(10))
 
-        gerar_grafico_pizza(df)
-        gerar_grafico_barras_empilhadas(df)
-
-        df_ordenado = df.sort_values(by='risco', ascending=False)
-        df_ordenado.to_csv('assets/fila_ordenada.csv', index=False, sep=';')
-
-        print("\nArquivo 'fila.csv' salvo com sucesso no diretório atual.")
-
         return df
     except FileNotFoundError:
         print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
@@ -106,7 +98,7 @@ def gerar_grafico_barras_empilhadas(df):
     plt.legend(title='IMC', labels=['IMC 1', 'IMC 2', 'IMC 3'])
     plt.show()
 
-def gerar_grafico_pizza(df):
+def gerar_grafico_pizza_idade(df):
     faixas_etarias = pd.cut(
         df['idade'], bins=[0, 18, 40, 60, 80], labels=['0-18', '19-40', '41-60', '61-80']
     )
@@ -118,6 +110,7 @@ def gerar_grafico_pizza(df):
     plt.ylabel('')
     plt.show()
 
+def gerar_grafico_pizza_risco(df):
     faixas_risco = pd.cut(
         df['risco'], bins=[0, 15, 20, 25, 30], labels=['0-15', '16-20', '21-25', '26-30']
     )
@@ -128,6 +121,8 @@ def gerar_grafico_pizza(df):
     plt.title('Distribuição de Risco (Faixas Riscos)')
     plt.ylabel('')
     plt.show()
+
+def gerar_grafico_pizza_renda(df):
 
     faixas_renda = pd.cut(
         df['rendaFamiliar'], 
@@ -152,7 +147,11 @@ def gerar_grafico_pizza(df):
     plt.ylabel('')
     plt.show()
 
-caminho_arquivo = "assets/dados.csv"
+def salvar_lista_ordenada(df):
+        df_ordenado = df.sort_values(by='risco', ascending=False)
+        df_ordenado.to_csv('assets/fila_ordenada.csv', index=False, sep=';')
+
+        print("\nArquivo 'fila.csv' salvo com sucesso no diretório atual.")
 
 if __name__ == "__main__":
     caminho_arquivo = "assets/dados.csv"
